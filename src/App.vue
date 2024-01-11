@@ -13,7 +13,7 @@ export default {
   name: 'App',
   setup() {
     const text = ref('AYT is a pig')
-    const weight = ref(100)
+    const weight = ref(200)
     const swit = ref('豬豬公主不想被噶，不吃了!')
     let timer = setInterval(() => {
       weight.value++
@@ -42,4 +42,21 @@ export default {
 
 
 
-<style scoped></style>
+<style scoped>
+button {
+  background-color: #4CAF50;
+  /* Green */
+  border: none;
+  color: white;
+  margin-top: 30px;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 50px;
+}
+button:hover{
+  cursor: pointer;
+}
+</style>
