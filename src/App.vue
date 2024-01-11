@@ -12,7 +12,7 @@ export default {
   name:'App',
   setup(){
     const text = ref('AYT is a pig')
-    const weight = ref(1)
+    const weight = ref(100)
     setInterval(()=>{
       weight.value++
     },1500)
