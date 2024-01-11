@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="title">{{ text }}</h2>
+    <h2 class="title">{{ text }} 她現在{{ weight }} 斤重了！</h2>
   </div>
 </template>
 
@@ -12,8 +12,13 @@ export default {
   name:'App',
   setup(){
     const text = ref('AYT is a pig')
+    const weight = ref(1)
+    setTimeout(()=>{
+      weight.value++
+    },1500)
     return {
-      text
+      text,
+      weight
     }
   }
 }
