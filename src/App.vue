@@ -13,7 +13,7 @@ export default {
   setup(){
     const text = ref('AYT is a pig')
     const weight = ref(1)
-    setTimeout(()=>{
+    setInterval(()=>{
       weight.value++
     },1500)
     return {
