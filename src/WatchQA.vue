@@ -63,7 +63,7 @@ async function sub() {
 
 <template>
     <h1>I'm a stupid robot</h1>
-    <h2>Don't ask me any difficult question</h2>
+    <h2>Don't ask me any difficult problem</h2>
     <div class="container"><!-- v-for="log in logs" :key="log.round" -->
         <div class="qubl" :style="{ display: qudis }">
             <div class="question">{{ iqu }}</div>
