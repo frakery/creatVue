@@ -18,6 +18,8 @@ export default {
     let timer = setInterval(() => {
       weight.value++
     }, 1500)
+
+    // 按钮点击事件
     function controller() {
       if (swit.value == '豬豬管不了那麼多了，繼續吃!') {
         swit.value = '豬豬公主不想被噶，不吃了!'
@@ -30,6 +32,7 @@ export default {
         clearInterval(timer)
       }
     }
+
     return {
       text,
       weight,
@@ -56,7 +59,8 @@ button {
   font-size: 16px;
   border-radius: 50px;
 }
-button:hover{
+
+button:hover {
   cursor: pointer;
 }
 </style>
