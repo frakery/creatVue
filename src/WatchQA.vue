@@ -13,11 +13,22 @@ const andis = ref('none')
 //         sub()
 //     }
 // })
+
+const is_show = ref(true)
+
 let round = 0;
 // 对话记录
 const logs = ref([
 
 ])
+//数据更新时刷新v-for中元素
+// watch(tan, () => {
+//     is_show.value = false;
+
+//     setTimeout(
+//         () => { is_show.value = true; }, 10
+//     )
+// })
 // 提交按钮方法
 async function sub() {
     // 判断是否有问号
@@ -45,13 +56,13 @@ async function sub() {
             // clear(Thinking)
             tan.value = await res.json()
             tan.value = tan.value.data.msg
-            logs[round] = {
+            logs.value.pop()
+            logs.value.push({
                 rounds: round,
                 question: iqu.value,
                 answer: tan.value
-            }
+            })
             round++
-            console.log(tan.value);
             // console.log(tan.value);
             // console.log(tan.value.data.msg);
         }
@@ -72,18 +83,19 @@ async function sub() {
 <template>
     <h1>I'm a stupid robot</h1>
     <h2>Don't ask me any difficult problem</h2>
-    <div class="container" v-for="log in logs" :key="log.round">
-        <div class="qubl" :style="{ display: qudis }">
-            <div class="question">{{ log.question }}</div>
-            <div class="qute">&gt;Question</div>
-        </div>
+    <div class="curr_show" v-if="is_show">
+        <div class="container" v-for="log in logs" :key="log.round">
+            <div class="qubl" :style="{ display: qudis }">
+                <div class="question">{{ log.question }}</div>
+                <div class="qute">&gt;Question</div>
+            </div>
 
-        <div class="anbl" :style="{ display: andis }">
-            <div class="ante">Answer&lt;</div>
-            <div class="answer">{{ log.answer }}</div>
+            <div class="anbl" :style="{ display: andis }">
+                <div class="ante">Answer&lt;</div>
+                <div class="answer">{{ log.answer }}</div>
+            </div>
         </div>
     </div>
-
     <div class="input">
         <div>輸入問題：</div><input type="text" class="inqu" v-model="iqu"><button @click="sub">發送↑</button>
     </div>
