@@ -13,7 +13,7 @@ const andis = ref('none')
 //         sub()
 //     }
 // })
-
+const allow = ref(false)
 const is_show = ref(true)
 
 let round = 0;
@@ -29,11 +29,23 @@ const logs = ref([
 //         () => { is_show.value = true; }, 10
 //     )
 // })
+
+//low dialogs update
+function update() {
+    logs.value.pop()
+    logs.value.push({
+        rounds: round,
+        question: iqu.value,
+        answer: tan.value
+    })
+}
+
 // 提交按钮方法
 async function sub() {
     // 判断是否有问号
     if (iqu.value.indexOf('?') > -1 || iqu.value.indexOf('？') > -1) {
         qudis.value = 'flex'
+        allow.value=true
         console.log(round)
         // 设计思考动效（失败）
         // const Thinking = setInterval(() => {
@@ -56,19 +68,16 @@ async function sub() {
             // clear(Thinking)
             tan.value = await res.json()
             tan.value = tan.value.data.msg
-            logs.value.pop()
-            logs.value.push({
-                rounds: round,
-                question: iqu.value,
-                answer: tan.value
-            })
+            update()
             round++
+            allow.value=false
             // console.log(tan.value);
             // console.log(tan.value.data.msg);
         }
         catch (error) {
             // clear(Thinking)
             tan.value = "fail to reach the API." + error;
+            update()
         }
         console.log(logs)
     }
@@ -97,7 +106,8 @@ async function sub() {
         </div>
     </div>
     <div class="input">
-        <div>輸入問題：</div><input type="text" class="inqu" v-model="iqu"><button @click="sub">發送↑</button>
+        <div>輸入問題：</div><input type="text" class="inqu" v-model="iqu">
+        <button @click="sub" :disabled="allow">發送↑</button>
     </div>
 </template>
 
