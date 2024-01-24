@@ -78,6 +78,7 @@ async function sub() {
             // clear(Thinking)
             tan.value = "fail to reach the API." + error;
             update()
+            allow.value=false
         }
         console.log(logs)
     }
