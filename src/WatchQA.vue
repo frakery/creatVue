@@ -13,28 +13,29 @@ const andis = ref('none')
 //         sub()
 //     }
 // })
-
+let round = 0;
 // 对话记录
-// const logs = ref([
-//     {
-//         round:1,
-//         question:123,
-//         answer:123
-//     },
-// ])
+const logs = ref([
+
+])
 // 提交按钮方法
 async function sub() {
     // 判断是否有问号
     if (iqu.value.indexOf('?') > -1 || iqu.value.indexOf('？') > -1) {
         qudis.value = 'flex'
-        
+        console.log(round)
         // 设计思考动效（失败）
         // const Thinking = setInterval(() => {
         //     setTimeout(() => { tan.value = 'Thinking.' }, 500)
         //     setTimeout(() => { tan.value = 'Thinking..' }, 1000)
         //     setTimeout(() => { tan.value = 'Thinking..' }, 1500)
         // }, 1500)
-        tan.value = 'Thinking...'
+        logs.value.push({
+            rounds: round,
+            question: iqu.value,
+            answer: 'Thinking...'
+        })
+        // tan.value = 'Thinking...'
         setTimeout(() => {
             andis.value = 'flex'
         }, 100);
@@ -44,7 +45,13 @@ async function sub() {
             // clear(Thinking)
             tan.value = await res.json()
             tan.value = tan.value.data.msg
-
+            logs[round] = {
+                rounds: round,
+                question: iqu.value,
+                answer: tan.value
+            }
+            round++
+            console.log(tan.value);
             // console.log(tan.value);
             // console.log(tan.value.data.msg);
         }
@@ -52,6 +59,7 @@ async function sub() {
             // clear(Thinking)
             tan.value = "fail to reach the API." + error;
         }
+        console.log(logs)
     }
     else {
         alert('请输入"?"结束')
@@ -64,15 +72,15 @@ async function sub() {
 <template>
     <h1>I'm a stupid robot</h1>
     <h2>Don't ask me any difficult problem</h2>
-    <div class="container"><!-- v-for="log in logs" :key="log.round" -->
+    <div class="container" v-for="log in logs" :key="log.round">
         <div class="qubl" :style="{ display: qudis }">
-            <div class="question">{{ iqu }}</div>
+            <div class="question">{{ log.question }}</div>
             <div class="qute">&gt;Question</div>
         </div>
 
         <div class="anbl" :style="{ display: andis }">
             <div class="ante">Answer&lt;</div>
-            <div class="answer">{{ tan }}</div>
+            <div class="answer">{{ log.answer }}</div>
         </div>
     </div>
 
